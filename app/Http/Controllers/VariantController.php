@@ -37,7 +37,7 @@ class VariantController extends Controller
         $data['image'] = $fileNameToStore;
         Variant::create($data);
         
-        return redirect("myVariant/$request->user_id");
+        return redirect("myVariants/$request->user_id");
     }
 
     public function myVariants($userId)

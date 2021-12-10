@@ -34,4 +34,4 @@ Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageB
 
 Route::get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
 Route::post('/variant', [VariantController::class, 'store']);
-Route::get('/myVariant/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');
+Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');

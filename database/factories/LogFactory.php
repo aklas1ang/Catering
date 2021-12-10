@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Log;
+use App\Models\Booking;
 use App\Models\User;
 
 class LogFactory extends Factory
@@ -25,10 +25,10 @@ class LogFactory extends Factory
     {
         return [
             'type' => $this->faker->randomElements([
-                Log::DONE,
-                Log::CANCEL,
-                Log::CREATED,
-                Log::CONFIRMED,
+                Booking::DONE,
+                Booking::CANCEL,
+                Booking::PENDING,
+                Booking::CONFIRMED,
             ]),
             'message' => $this->faker->sentence(),
             'user_id' => User::factory()->create()
