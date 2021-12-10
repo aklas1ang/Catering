@@ -26,7 +26,6 @@ class VariantFactory extends Factory
                 Variant::DRINKS
             ]),
             'user_id' => User::factory()->create(),
-            'package_id' => Package::factory()->create(),
             'description' => $this->faker->text()
         ];
     }

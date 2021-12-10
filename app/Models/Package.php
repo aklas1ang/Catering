@@ -20,7 +20,7 @@ class Package extends Model
 
     public function variants()
     {
-        return $this->hasMany(Variant::class);
+        return $this->belongsToMany(Variant::class);
     }
 
     public function user()

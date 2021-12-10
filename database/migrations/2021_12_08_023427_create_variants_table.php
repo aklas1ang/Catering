@@ -18,8 +18,8 @@ class CreateVariantsTable extends Migration
             $table->string('name');
             $table->string('type');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('package_id');
             $table->text('description');
+            $table->longText('image');
             $table->timestamps();
         });
     }

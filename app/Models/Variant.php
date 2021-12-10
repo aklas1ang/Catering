@@ -16,13 +16,13 @@ class Variant extends Model
         'name',
         'type',
         'user_id',
-        'package_id',
-        'description'
+        'description',
+        'image'
     ];
 
-    public function package() 
+    public function packages() 
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsToMany(Package::class);
     }
 
     public function user()
