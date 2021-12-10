@@ -9,11 +9,17 @@ class Booking extends Model
 {
     use HasFactory;
 
+    const DONE = 'done';
+    const CANCEL = 'cancelled';
+    const PENDING = 'pending';
+    const CONFIRMED = 'confirmed';
+
     protected $fillable = [
         'package_id',
         'book_by_id',
         'reserved_to_id',
-        'schedule'
+        'schedule',
+        'status'
     ];
 
     public function bookBy() {

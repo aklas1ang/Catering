@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\VariantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/myPackages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
+Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
+Route::post('/package', [PackageController::class, 'store']);
+Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name('packagesDashboard');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/myBookings/{userId}', [BookingController::class, 'myBookings'])->name('myBookings');
+Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
+
+Route::get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
+Route::post('/variant', [VariantController::class, 'store']);
+Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');

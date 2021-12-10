@@ -21,7 +21,7 @@ class PackageFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'price' => $this->faker->randomFloat(),
+            'price' => $this->faker->randomFloat(1000),
             'limit' => $this->faker->randomDigit(),
             'user_id' => User::factory()->create(),
             'image' => 'https://via.placeholder.com/150'
