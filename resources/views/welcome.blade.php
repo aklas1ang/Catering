@@ -37,263 +37,65 @@
             </div>
 
             <div class="row">
-
-                <div class="col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card " style="width:23rem;">
-                                    <img class="card-img-top img- fluid"
-                                        src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Package Name</h4>
-                                        <p class="card-text text-center">This is basic card with image on top, title,
-                                            description
-                                            and
-                                            button.
-                                        </p>
-                                        <p class="text-danger h4 text-center price"> PHP 2000.00 </p>
+                @if (count($packages) > 0)
+                    @foreach ($packages as $package)
+                        <div class="col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside">
+                                        <div class="card rounded" style="width:23rem;">
+                                            <img class="card-img-top img-fluid package-image rounded-top"
+                                            src="{{ url('storage/img/' . $package->image) }}"
+                                                alt="card image">
+                                            <div class="card-body">
+                                                <h4 class="card-title text-center">{{ $package->name }}</h4>
+                                                <h6 class="card-title text-center">{{ $package->user->name }}</h6>
+                                                <p class="text-danger h4 text-center price"> PHP {{ $package->price }}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="backside" style="background-image: url('/images/sample.png')">
-                                <div class="card" style="width:23rem;">
-                                    <!-- <div class="card-header">
-                                                                                                        This is a Header
-                                                                                                    </div> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">Package Name</h4>
-                                        <p class="card-text">This is a card component with header and footer.This is a
-                                            card component with header and footer.This is a card component with header and
-                                            footer.</p>
-                                        <a href="#" class="btn btn-info btn-md">Book Now</a>
+                                    <div class="backside" style="background-image: url('/images/sample.png')">
+                                        <div class="card" style="width:23rem;">
+                                            <div class="card-body">
+                                                <h4 class="card-title">{{ $package->name }}</h4>
+                                                <p class="card-text description">{{ $package->description }}
+                                                </p>
+                                                <a href="{{ route('viewDetails', $package) }}"
+                                                    class="btn btn-primary">View Details</a>
+                                                <a href="#" class="btn btn-warning">Book Now</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- <div class="card-footer">
-                                                                                                        This is a Footer
-                                                                                                    </div> -->
                                 </div>
                             </div>
                         </div>
+
+                    @endforeach
+                @else
+                    <div class="alert alert-secondary">
+                        No Packages Available
                     </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card " style="width:23rem;">
-                                    <img class="card-img-top img- fluid"
-                                        src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Package Name</h4>
-                                        <p class="card-text text-center">This is basic card with image on top, title,
-                                            description
-                                            and
-                                            button.
-                                        </p>
-                                        <p class="text-danger h4 text-center price"> PHP 2000.00 </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside" style="background-image: url('/images/sample.png')">
-                                <div class="card" style="width:23rem;">
-                                    <!-- <div class="card-header">
-                                                                                                        This is a Header
-                                                                                                    </div> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">Package Name</h4>
-                                        <p class="card-text">This is a card component with header and footer.This is a
-                                            card component with header and footer.This is a card component with header and
-                                            footer.</p>
-                                        <a href="#" class="btn btn-info btn-md">Book Now</a>
-                                    </div>
-                                    <!-- <div class="card-footer">
-                                                                                                        This is a Footer
-                                                                                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card " style="width:23rem;">
-                                    <img class="card-img-top img- fluid"
-                                        src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Package Name</h4>
-                                        <p class="card-text text-center">This is basic card with image on top, title,
-                                            description
-                                            and
-                                            button.
-                                        </p>
-                                        <p class="text-danger h4 text-center price"> PHP 2000.00 </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside" style="background-image: url('/images/sample.png')">
-                                <div class="card" style="width:23rem;">
-                                    <!-- <div class="card-header">
-                                                                                                        This is a Header
-                                                                                                    </div> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">Package Name</h4>
-                                        <p class="card-text">This is a card component with header and footer.This is a
-                                            card component with header and footer.This is a card component with header and
-                                            footer.This is a card component with header and footer.</p>
-                                        <a href="#" class="btn btn-info btn-md">Book Now</a>
-                                    </div>
-                                    <!-- <div class="card-footer">
-                                                                                                        This is a Footer
-                                                                                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card " style="width:23rem;">
-                                    <img class="card-img-top img- fluid"
-                                        src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Package Name</h4>
-                                        <p class="card-text text-center">This is basic card with image on top, title,
-                                            description
-                                            and
-                                            button.
-                                        </p>
-                                        <p class="text-danger h4 text-center price"> PHP 2000.00 </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside" style="background-image: url('/images/sample.png')">
-                                <div class="card" style="width:23rem;">
-                                    <!-- <div class="card-header">
-                                                                                                        This is a Header
-                                                                                                    </div> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">Package Name</h4>
-                                        <p class="card-text">This is a card component with header and footer.This is a
-                                            card component with header and footer.This is a card component with header and
-                                            footer.</p>
-                                        <a href="#" class="btn btn-info btn-md">Book Now</a>
-                                    </div>
-                                    <!-- <div class="card-footer">
-                                                                                                        This is a Footer
-                                                                                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card " style="width:23rem;">
-                                    <img class="card-img-top img- fluid"
-                                        src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Package Name</h4>
-                                        <p class="card-text text-center">This is basic card with image on top, title,
-                                            description
-                                            and
-                                            button.
-                                        </p>
-                                        <p class="text-danger h4 text-center price"> PHP 2000.00 </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside" style="background-image: url('/images/sample.png')">
-                                <div class="card" style="width:23rem;">
-                                    <!-- <div class="card-header">
-                                                                                                        This is a Header
-                                                                                                    </div> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">Package Name</h4>
-                                        <p class="card-text">This is a card component with header and footer.This is a
-                                            card component with header and footer.This is a card component with header and
-                                            footer.</p>
-                                        <a href="#" class="btn btn-info btn-md">Book Now</a>
-                                    </div>
-                                    <!-- <div class="card-footer">
-                                                                                                        This is a Footer
-                                                                                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside">
-                                <div class="card " style="width:23rem;">
-                                    <img class="card-img-top img- fluid"
-                                        src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png" alt="card image">
-                                    <div class="card-body">
-                                        <h4 class="card-title text-center">Package Name</h4>
-                                        <p class="card-text text-center">This is basic card with image on top, title,
-                                            description
-                                            and
-                                            button.
-                                        </p>
-                                        <p class="text-danger h4 text-center price"> PHP 2000.00 </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside" style="background-image: url('/images/sample.png')">
-                                <div class="card" style="width:23rem;">
-                                    <!-- <div class="card-header">
-                                                                                                        This is a Header
-                                                                                                    </div> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">Package Name</h4>
-                                        <p class="card-text">This is a card component with header and footer.This is a
-                                            card component with header and footer.This is a card component with header and
-                                            footer.</p>
-                                        <a href="#" class="btn btn-info btn-md">Book Now</a>
-                                    </div>
-                                    <!-- <div class="card-footer">
-                                                                                                        This is a Footer
-                                                                                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
+    </div>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <footer class="bg-black text-center text-white">
-            <br>
-            <img src="{{ url('/images/footerLogo.png') }}" class="rounded mx-auto d-block " alt="">
-            <div class="container p-4">
-                <section class="mb-4">
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-youtube"></a>
-                    <a href="#" class="fa fa-instagram"></a>
-                    <a href="#" class="fa fa-twitter"></a>
+    <footer class="bg-black text-center text-white">
+        <br>
+        <img src="{{ url('/images/footerLogo.png') }}" class="rounded mx-auto d-block " alt="">
+        <div class="container p-4">
+            <section class="mb-4">
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-youtube"></a>
+                <a href="#" class="fa fa-instagram"></a>
+                <a href="#" class="fa fa-twitter"></a>
 
-                </section>
+            </section>
 
-                {{-- <section class="">
+            {{-- <section class="">
                     <form action="">
                         <div class="row d-flex justify-content-center">
                             <div class="col-auto">
@@ -318,123 +120,136 @@
                     </form>
                 </section> --}}
 
-                <section class="mb-4">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                        eum harum corrupti dicta, aliquam sequi voluptate quas.
-                    </p>
-                </section>
+            <section class="mb-4">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+                    repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+                    eum harum corrupti dicta, aliquam sequi voluptate quas.
+                </p>
+            </section>
 
-            </div>
+        </div>
 
-            <div class="text-center p-3" style="background-color: gray;">
-                © 2020 Copyright:
-                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-            </div>
-        </footer>
-        <style>
-            .fa {
-                margin: 10px;
-            }
+        <div class="text-center p-3" style="background-color: gray;">
+            © 2020 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+    </footer>
+    <style>
 
-            .price {
-                font-family: Verdana, Geneva, Tahoma, sans-serif;
-                font-style: italic;
-                font-weight: bold;
-            }
+        .package-image{
+            height: 250px;
+        }
 
-            .card-title {
-                font-weight: bold;
-            }
+        .description {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-            .popPack p {
-                /* font-family: "Great Vibes cursive" ; */
-                font-family: fantasy;
-                font-size: 36px;
-                font-weight: 300;
-                color: rgb(241, 20, 210);
-                margin: 50px 0 10px;
-                text-shadow: 1px 1px 1px rgb(150 150 150 / 90%);
-            }
+        .fa {
+            margin: 10px;
+        }
 
-            .image-flip:hover .backside,
-            .image-flip.hover .backside {
-                -webkit-transform: rotateY(0deg);
-                -moz-transform: rotateY(0deg);
-                -o-transform: rotateY(0deg);
-                -ms-transform: rotateY(0deg);
-                transform: rotateY(0deg);
-            }
+        .price {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-style: italic;
+            font-weight: bold;
+        }
 
-            .image-flip:hover .frontside,
-            .image-flip.hover .frontside {
-                -webkit-transform: rotateY(180deg);
-                -moz-transform: rotateY(180deg);
-                -o-transform: rotateY(180deg);
-                transform: rotateY(180deg);
-            }
+        .card-title {
+            font-weight: bold;
+        }
 
-            .image-flip {
-                margin-bottom: 200px;
-                width: 300px;
-                height: 250px;
-            }
+        .popPack p {
+            /* font-family: "Great Vibes cursive" ; */
+            font-family: fantasy;
+            font-size: 36px;
+            font-weight: 300;
+            color: rgb(241, 20, 210);
+            margin: 50px 0 10px;
+            text-shadow: 1px 1px 1px rgb(150 150 150 / 90%);
+        }
 
-            .mainflip {
-                -webkit-transition: 1s;
-                -webkit-transform-style: preserve-3d;
-                -ms-transition: 1s;
-                -moz-transition: 1s;
-                -moz-transform: perspective(1000px);
-                -moz-transform-style: preserve-3d;
-                -ms-transform-style: preserve-3d;
-                transition: 1s;
-                transform-style: preserve-3d;
-                position: relative;
-            }
+        .image-flip:hover .backside,
+        .image-flip.hover .backside {
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+        }
 
-            .frontside,
-            .backside {
-                -webkit-backface-visibility: hidden;
-                -moz-backface-visibility: hidden;
-                -ms-backface-visibility: hidden;
-                backface-visibility: hidden;
-                -webkit-transition: 1s;
-                -webkit-transform-style: preserve-3d;
-                -moz-transition: 1s;
-                -moz-transform-style: preserve-3d;
-                -o-transition: 1s;
-                -o-transform-style: preserve-3d;
-                -ms-transition: 1s;
-                -ms-transform-style: preserve-3d;
-                transition: 1s;
-                transform-style: preserve-3d;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
+        .image-flip:hover .frontside,
+        .image-flip.hover .frontside {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
 
-            .frontside {
-                -webkit-transform: rotateY(0deg);
-                -ms-transform: rotateY(0deg);
-                z-index: 2;
-            }
+        .image-flip {
+            margin-bottom: 200px;
+            width: 300px;
+            height: 250px;
+        }
 
-            .backside {
-                background: white;
-                -webkit-transform: rotateY(-180deg);
-                -moz-transform: rotateY(-180deg);
-                -o-transform: rotateY(-180deg);
-                -ms-transform: rotateY(-180deg);
-                transform: rotateY(-180deg);
-            }
+        .mainflip {
+            -webkit-transition: 1s;
+            -webkit-transform-style: preserve-3d;
+            -ms-transition: 1s;
+            -moz-transition: 1s;
+            -moz-transform: perspective(1000px);
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            transition: 1s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
 
-            .card,
-            .card-img-top {
-                border-radius: 0;
-            }
+        .frontside,
+        .backside {
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transition: 1s;
+            -webkit-transform-style: preserve-3d;
+            -moz-transition: 1s;
+            -moz-transform-style: preserve-3d;
+            -o-transition: 1s;
+            -o-transform-style: preserve-3d;
+            -ms-transition: 1s;
+            -ms-transform-style: preserve-3d;
+            transition: 1s;
+            transform-style: preserve-3d;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-        </style>
+        .frontside {
+            -webkit-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            z-index: 2;
+        }
 
-    @endsection
+        .backside {
+            background: white;
+            -webkit-transform: rotateY(-180deg);
+            -moz-transform: rotateY(-180deg);
+            -o-transform: rotateY(-180deg);
+            -ms-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+        }
+
+        .card,
+        .card-img-top {
+            border-radius: 0;
+        }
+
+    </style>
+
+@endsection

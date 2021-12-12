@@ -68,4 +68,11 @@ class PackageController extends Controller
         return $data;
     }
 
+    public function details($id)
+    {
+        $package = Package::with('user', 'variants')->find($id);
+        
+        return view('viewDetails', compact('package'));
+    }
+
 }
