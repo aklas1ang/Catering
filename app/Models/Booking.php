@@ -13,6 +13,7 @@ class Booking extends Model
     const CANCEL = 'cancelled';
     const PENDING = 'pending';
     const CONFIRMED = 'confirmed';
+    const DECLINED = 'declined';
 
     protected $fillable = [
         'package_id',
@@ -22,11 +23,20 @@ class Booking extends Model
         'status'
     ];
 
+    protected $casts = [
+        'schedule' => 'datetime'
+    ];
+
     public function bookBy() {
         return $this->belongsTo(User::class, 'book_by_id', 'id');
     }
 
     public function reservedTo() {
         return $this->belongsTo(User::class, 'reserved_to_id', 'id');
+    }
+
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
     }
 }

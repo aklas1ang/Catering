@@ -9,8 +9,6 @@ class Log extends Model
 {
     use HasFactory;
 
-    
-
     protected $fillable = [
         'type',
         'message',
