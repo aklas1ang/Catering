@@ -14,6 +14,7 @@
             <div class="col-6">
                 <br>
                 <p> {{ $package->description }} </p>
+                <a href="" class="btn btn-warning">Book Now</a>
             </div>
         </div>
         <br><br>
@@ -28,13 +29,12 @@
                         <div class="card variant">
                             <img class="card-img-top variant-image img-fluid"
                                 src="{{ url('storage/img/' . $variant->image) }}" alt="card image">
-                            <div class="middle">
-                                <h4 class="card-title variant-name text-center">{{ $variant->name }}</h4>
-                                <h4 class="card-title variant-description text-center">{{ $variant->description }}</h4>
-                            </div>
-                            {{-- <div class="card-body">
+                        
+                            <div class="card-body">
                             <h4 class="card-title text-center">{{ $variant->name }}</h4>
-                        </div> --}}
+                            <h4 class="card-title variant-description text-center">{{ $variant->description }}</h4>
+
+                        </div>
                         </div>
                     </div>
                 @endforeach
@@ -73,34 +73,7 @@
         </div>
     </footer>
     <style>
-        /* on hover to see the description */
-        .middle {
-            transition: .5s ease;
-            opacity: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .variant-name,
-        .variant-description {
-            /* background-color: #04aa6d; */
-            color: black;
-            font-size: 20px;
-        }
-
-        .variant:hover .variant-image {
-            opacity: 0.3;
-        }
-
-        .variant:hover .middle {
-            opacity: 1;
-        }
-
-        /* end css of on hover to see the description */
+      
 
         .variant {
             position: relative;
