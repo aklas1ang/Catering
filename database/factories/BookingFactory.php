@@ -26,6 +26,7 @@ class BookingFactory extends Factory
                 Booking::CANCEL,
                 Booking::PENDING,
                 Booking::CONFIRMED,
+                Booking::DECLINED
             ]),
             'schedule' => Carbon::now()
         ];

@@ -10,15 +10,33 @@ class BookingController extends Controller
 {
     public function myBookings($userId)
     {
-        $data = Booking::where('book_by_id', $userId)
+        $bookings = Booking::where('book_by_id', $userId)
                         ->get();
-        return $data;
+        return view('user.myBookings', compact('bookings'));
     }
 
-    public function myPackageBookings($userId)
+    public function reservations($userId)
     {
-        $data = Booking::where('reserved_to_id' , $userId)
+        $reservations = Booking::with('package', 'bookBy')
+                        ->where('reserved_to_id' , $userId)
                         ->get();
-        return $data;
+        return view('user.reservations', compact('reservations'));
+    }
+    
+    public function confirmBooking(Booking $booking)
+    {
+        $booking->status = Booking::CONFIRMED;
+        $booking->save();
+
+        return redirect("reservations/$booking->reserved_to_id")
+                ->with('success', 'The booking has been confirmed!');
+    }
+
+    public function declineBooking(Booking $booking)
+    {
+        $booking->status = Booking::DECLINED;
+        $booking->save();
+        return redirect("reservations/$booking->reserved_to_id")
+                ->with('success', 'The booking has been declined!');
     }
 }

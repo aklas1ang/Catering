@@ -30,7 +30,10 @@ Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/myBookings/{userId}', [BookingController::class, 'myBookings'])->name('myBookings');
-Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
+Route::get('/reservations/{userId}', [BookingController::class, 'reservations'])->name('reservations');
+Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking']);
+Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking']);
+
 
 Route::get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
 Route::post('/variant', [VariantController::class, 'store']);
