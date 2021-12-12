@@ -22,6 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/packages', [PackageController::class, 'packages'])->name('packages');
 Route::get('/myPackages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
 Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
 Route::post('/package', [PackageController::class, 'store']);
@@ -34,6 +35,9 @@ Route::get('/reservations/{userId}', [BookingController::class, 'reservations'])
 Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking']);
 Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking']);
 
+Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
+Route::get('/createBooking', [BookingController::class, 'createBooking'])->name('createBooking');
+Route::post('/package/booking', [BookingController::class, 'store'])->name('store');
 
 Route::get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
 Route::post('/variant', [VariantController::class, 'store']);
