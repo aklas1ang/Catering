@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\VariantController;
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\DetailsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +21,12 @@ use App\Http\Controllers\VariantController;
 */
 
 Auth::routes();
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AppController::class, 'index']);
 
 Route::get('/packages', [PackageController::class, 'packages'])->name('packages');
 Route::get('/myPackages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
 Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
+Route::get('/package/{id}/details', [PackageController::class, 'details'])->name('viewDetails');
 Route::post('/package', [PackageController::class, 'store']);
 Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name('packagesDashboard');
 
