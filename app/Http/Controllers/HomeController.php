@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $packages = Package::whereNotIn('user_id', [Auth::user()->id])
+        $packages = Package::where('user_id', [Auth::user()->id])
                         ->get();
         return view('user.home', compact('packages'));
     }

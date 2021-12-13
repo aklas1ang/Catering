@@ -1,0 +1,8 @@
+#times-close {
+    float: right;
+    cursor:pointer;
+}
+
+.error-msg {
+    color: rgb(255, 0, 0);
+}

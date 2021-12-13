@@ -29,6 +29,7 @@ class LogFactory extends Factory
                 Booking::CANCEL,
                 Booking::PENDING,
                 Booking::CONFIRMED,
+                Booking::DECLINED
             ]),
             'message' => $this->faker->sentence(),
             'user_id' => User::factory()->create()

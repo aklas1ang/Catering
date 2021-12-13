@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Booking::factory()->create();
+        \App\Models\Booking::factory()->count(10)->create();
     }
 }
