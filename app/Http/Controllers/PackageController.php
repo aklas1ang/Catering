@@ -75,5 +75,12 @@ class PackageController extends Controller
             Storage::delete('public/storage/img/'.$package->image);
         }
     }
+    
+    public function details($id)
+    {
+        $package = Package::with('user', 'variants')->find($id);
+        
+        return view('viewDetails', compact('package'));
+    }
 
 }
