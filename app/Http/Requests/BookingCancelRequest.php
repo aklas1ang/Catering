@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Booking;
 use Carbon\Carbon;
 
-class BookingRequest extends FormRequest
+class BookingCancelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +25,12 @@ class BookingRequest extends FormRequest
      */
     public function rules()
     {
-        $date = Carbon::now()->addDays(2);
+        $booking = Booking::find(request()->booking);
+        $date = Carbon::parse($booking->schedule)->subDays(2);
+        request()->schedule = Carbon::now();
+
         return [
-            'package_id' => 'required|exists:packages,id',
-            'book_by_id' => 'required|exists:users,id',
-            'reserved_to_id' => 'required|exists:users,id',
-            'schedule' => 'required|date|after:'.$date->format('Y-m-d'),
+            'schedule' => 'required|date|before:'.$date->format('Y-m-d'),
         ];
     }
 }

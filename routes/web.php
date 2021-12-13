@@ -34,13 +34,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/myBookings/{userId}', [BookingController::class, 'myBookings'])->name('myBookings');
 Route::get('/reservations/{userId}', [BookingController::class, 'reservations'])->name('reservations');
-Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking']);
-Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking']);
+Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking'])->name('confirmBooking');
+Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
 
 Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
-Route::get('/createBooking', [BookingController::class, 'createBooking'])->name('createBooking');
+Route::middleware('auth')->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
 Route::post('/package/booking', [BookingController::class, 'store'])->name('store');
+Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBooking'])->name('cancelBooking');
 
-Route::get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
+Route::middleware('auth')->get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
 Route::post('/variant', [VariantController::class, 'store']);
 Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');

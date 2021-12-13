@@ -14,7 +14,7 @@
             <div class="col-6">
                 <br>
                 <p> {{ $package->description }} </p>
-                <a href="" class="btn btn-warning">Book Now</a>
+                <a href="{{ route('createBooking', $package) }}" class="btn btn-warning">Book Now</a>
             </div>
         </div>
         <br><br>
@@ -29,7 +29,7 @@
                         <div class="card variant">
                             <img class="card-img-top variant-image img-fluid"
                                 src="{{ url('storage/img/' . $variant->image) }}" alt="card image">
-                        
+
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ $variant->name }}</h4>
                             <h4 class="card-title variant-description text-center">{{ $variant->description }}</h4>
@@ -73,7 +73,7 @@
         </div>
     </footer>
     <style>
-      
+
 
         .variant {
             position: relative;

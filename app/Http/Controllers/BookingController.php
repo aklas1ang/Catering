@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Booking;
+use App\Models\Package;
 use App\Http\Requests\BookingRequest;
+use App\Http\Requests\BookingCancelRequest;
+
 
 class BookingController extends Controller
 {
@@ -25,6 +28,16 @@ class BookingController extends Controller
         return view('user.reservations', compact('reservations'));
     }
 
+    public function cancelBooking(BookingCancelRequest $request)
+    {
+
+        $booking->status = Booking::CANCEL;
+        $booking->save();
+
+        return redirect("reservations/$booking->book_by_id")
+                ->with('success', 'The booking has been canceled!');
+    }
+
     public function confirmBooking(Booking $booking)
     {
         $booking->status = Booking::CONFIRMED;
@@ -42,20 +55,14 @@ class BookingController extends Controller
                 ->with('success', 'The booking has been declined!');
     }
 
+    public function createBooking(Package $package)
+    {
+        return view('user.booking.createBooking', ['package' => $package]);
+    }
+
     public function store(BookingRequest $request)
     {
-        DB::beginTransaction();
-
-        try {
-            Booking::create($request->all());
-            DB::commit();
-            return redirect()->route()->route('myBookings');
-        } catch (\Exception $e) {
-            $error = $e->getMessage();
-            DB::rollback();
-            return redirect()->withErrors(['msg' => 'Something wen\'t wrong']);
-        }
-
-
+        Booking::create($request->all());
+        return redirect()->route('myBookings', \Auth::user()->id);
     }
 }

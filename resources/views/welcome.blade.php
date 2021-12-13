@@ -63,7 +63,7 @@
                                                 </p>
                                                 <a href="{{ route('viewDetails', $package) }}"
                                                     class="btn btn-primary">View Details</a>
-                                                <a href="#" class="btn btn-warning">Book Now</a>
+                                                <a href="{{ route('createBooking', $package) }}" class="btn btn-warning">Book Now</a>
                                             </div>
                                         </div>
                                     </div>
