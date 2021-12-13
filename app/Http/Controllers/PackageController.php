@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Package;
 use App\Models\Variant;
 
@@ -39,7 +40,7 @@ class PackageController extends Controller
             $path = $request->file('image')->storeAs('public/img', $fileNameToStore);
         }else
         {
-            $fileNameToStore = 'noimage.jpg';
+            $fileNameToStore = 'noImage.png';
         }
 
         $data['image'] = $fileNameToStore;
@@ -57,15 +58,22 @@ class PackageController extends Controller
 
     public function myPackages($userId)
     {
-        $data = Package::where('user_id', $userId)
+        $packages = Package::where('user_id', $userId)
                         ->get();
-        return $data;
+        return $packages;
     }
 
     public function dashboard($userId) {
         $data = Package::whereNotIn('user_id', [$userId])
                         ->get();
         return $data;
+    }
+
+    public function delete(Package $package)
+    {
+        if($package->image != 'noImage.png') {
+            Storage::delete('public/storage/img/'.$package->image);
+        }
     }
 
 }
