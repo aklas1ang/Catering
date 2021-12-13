@@ -28,13 +28,13 @@ class BookingController extends Controller
         return view('user.reservations', compact('reservations'));
     }
 
-    public function cancelBooking(BookingCancelRequest $request)
+    public function cancelBooking(BookingCancelRequest $request, Booking $booking)
     {
 
         $booking->status = Booking::CANCEL;
         $booking->save();
 
-        return redirect("reservations/$booking->book_by_id")
+        return redirect("myBookings/$booking->book_by_id")
                 ->with('success', 'The booking has been canceled!');
     }
 

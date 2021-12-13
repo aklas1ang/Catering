@@ -4,15 +4,22 @@
     @if($errors->count())
         @dd($errors)
     @endif
-    <!-- <div class="container">
-        <div class="alert alert-danger">
-            <span>Something went wrong</span>
-        </div>
-    </div> -->
+    <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
+        @endif
+    </div>
     <div class="container">
         <h3>My Bookings</h3>
     </div>
     <div class="container">
+        @if (!$bookings->count())
+            <div class="alert alert-secondary">
+                No Bookings Yet!
+            </div>
+        @else
         <table class="table table-bordered table-hover">
             <thead class="">
                 <tr>
@@ -23,11 +30,6 @@
                 </tr>
             </thead>
             <tbody>
-                @if(!$bookings->count())
-                    <tr>
-                        <td colspan="3" class="text-center">No data!</td>
-                    </tr>
-                @endif
                 @foreach($bookings as $booking)
                     <tr scope="row">
                         <td>{{ $booking->package->name }}</td>
@@ -36,7 +38,7 @@
                         <td>
                             <form action="{{ route('cancelBooking', $booking) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="schedule">
+                                <input type="hidden" name="schedule" class="schedule">
                                 <button type="submit" class="btn btn-danger">Cancel</button>
                             </form>
                         </td>
@@ -44,8 +46,18 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(() => {
+        const dateNow = (new Date()).toLocaleDateString();
+        const scheduleInputs = $('.schedule').toArray();
+        scheduleInputs.forEach(schedule => {
+            $(schedule).val(dateNow)
+        })
+    })
+</script>
 @endsection
