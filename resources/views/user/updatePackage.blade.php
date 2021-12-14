@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid w-75">
-        <h1 class="text-center"> Create Package</h1>
+        <h1 class="text-center"> Edit Package</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -13,19 +13,19 @@
             </div>
         @endif
 
-        <form method="POST" action="/package" enctype="multipart/form-data">
+        <form method="POST" action="/package/{package}/edit" enctype="multipart/form-data">
             @csrf
 
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="name ml-25">
-                            Name <input class="form-control" type="text" name="name" value="{{ old('name') }}">
+                        Name <input class="form-control" type="text" name="name" value="{{$package->name}}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="price">
-                            Price <input class="form-control " type="number" name="price" value="{{ old('price') }}">
+                        Price <input class="form-control " type="number" name="price" value="{{$package->price}}">
                         </div>
                     </div>
                 </div><br>
@@ -34,48 +34,45 @@
                         <div class="description">
                             <p>Description</p>
                             <textarea class="form-control" name="description" id="description" cols="30"
-                                rows="10">{{ old('description') }}</textarea>
+                        rows="10">{{$package->description}}</textarea>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="image">
-                            Image <input type="file" id="image" name="image">
+                        <div class="image mb-2">
+                            Image <input type="file" id="image" name="image" value="{{$package->image}}">
                         </div>
-                        <img id="preview" class="form-control" style="display:none;" src="" alt="">
+                        <img class="form-control" style="height: 318px" src="{{ url('storage/img/' . $package->image) }}" id="preview" alt="">
+
                     </div>
                 </div><br>
                 <div class="row">
                     <div class="variants">
                         Choose any of the following variants you created
                         <br>
-                        @foreach ($data as $key => $types)
-                            <div class="row">
-                                <h2 class="mt-4">{{ $key }}</h2>
-                                @foreach ($types as $element)
-                                    <div class="col-md-4">
-                                        @if(in_array($element->id, (old('variants')? old('variants'): [])))
-                                        <input type="checkbox" name="variants[]" value={{ $element->id }} checked>
+                        <div class="row">
+                            @foreach ($data as $element)
+                                <div class="col-md-4">
+                                    @if(in_array($element->id, $package->variants->map(function($t){return $t->id;})->toArray()))
+                                    <input type="checkbox" name="variants[]" value={{ $element->id }} checked>
                                     @else
-                                        <input type="checkbox" name="variants[]" value={{ $element->id }}>
-                                @endif
-                                <label for="">{{ $element->name }}</label><br>
-                                <img class="card-img-top  img-fluid" style="height: 318px"
-                                    src="{{ url('storage/img/' . $element->image) }}">
-                            </div>
-                        @endforeach
+                                    <input type="checkbox" name="variants[]" value={{ $element->id }}>
+                                    @endif
+                                    <label for="">{{ $element->name }}</label><br>
+                                    <img class="card-img-top  img-fluid" style="height: 318px"
+                                        src="{{ url('storage/img/' . $element->image) }}">
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                    @endforeach
                 </div>
+            </div><br>
+            <a class="btn btn-danger w-25 text-center " style="float:right; margin-left: 6px" href="{{ route('myPackages', Auth::user()->id) }}">Back</a>
+            <input type="submit" class="btn btn-primary w-25 text-center" style="float:right;" value="Submit">
+            <br><br>
+            <div class="userId">
+                <input type="hidden" name="user_id" value={{ Auth::user()->id }}>
             </div>
-    </div><br>
-    <a class="btn btn-danger w-25 text-center " style="float:right; margin-left: 6px"
-        href="{{ route('myPackages', Auth::user()->id) }}">Back</a>
-    <input type="submit" class="btn btn-primary w-25 text-center" style="float:right;" value="Submit">
-    <br><br>
-    <div class="userId">
-        <input type="hidden" name="user_id" value={{ Auth::user()->id }}>
-    </div>
-    </form>
+        </form>
     </div>
 @endsection
 

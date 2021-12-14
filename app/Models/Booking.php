@@ -11,6 +11,7 @@ class Booking extends Model
 
     const DONE = 'done';
     const CANCEL = 'cancelled';
+    const CREATED = 'created';
     const PENDING = 'pending';
     const CONFIRMED = 'confirmed';
     const DECLINED = 'declined';

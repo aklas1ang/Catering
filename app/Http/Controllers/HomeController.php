@@ -25,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $package_nav = 'active';
         $packages = Package::where('user_id', [Auth::user()->id])
                         ->get();
-        return view('user.home', compact('packages'));
+        return view('user.home', compact('packages', 'package_nav'));
     }
 }

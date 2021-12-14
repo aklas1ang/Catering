@@ -16,36 +16,30 @@
             @endif
             <div class="col-md-10">
                 <div class="container">
-                    <h3>My Bookings</h3>
+                    <h3>My Logs</h3>
                 </div>
                 <div class="container">
-                    @if (!$bookings->count())
+                    @if (!$logs->count())
                         <div class="alert alert-secondary">
-                            No Bookings Yet!
+                            No Logs!
                         </div>
                     @else
                         <table class="table table-bordered table-hover">
                             <thead class="">
                                 <tr>
-                                    <th scope="col">Package Name</th>
-                                    <th scope="col">Schedule</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Created At</th>
+                                    {{-- <th scope="col">Status</th> --}}
+                                    {{-- <th scope="col">Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bookings as $booking)
+                                @foreach ($logs as $log)
                                     <tr scope="row">
-                                        <td>{{ $booking->package->name }}</td>
-                                        <td>{{ $booking->schedule }}</td>
-                                        <td>{{ $booking->status }}</td>
-                                        <td>
-                                            <form action="{{ route('cancelBooking', $booking) }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="schedule" class="schedule">
-                                                <button type="submit" class="btn btn-danger">Cancel</button>
-                                            </form>
-                                        </td>
+                                        <td>{{ strtoupper($log->type) }}</td>
+                                        <td>{{ $log->message }}</td>
+                                        <td>{{ $log->created_at->format('Y-m-d') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
