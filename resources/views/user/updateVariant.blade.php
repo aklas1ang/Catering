@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="name ml-25">
-                            Name <input class="form-control" type="text" name="name" value="{{ old('name') }}">
+                            Name <input class="form-control" type="text" name="name" value="{{$variant->name}}">
                         </div>
                     </div>
                     <div class="col-md-6 type">
@@ -38,7 +38,7 @@
                         <div class="description">
                             <p>Description</p>
                             <textarea class="form-control" name="description" id="description" cols="30"
-                                rows="10">{{ old('description') }}</textarea>
+                                rows="10">{{ $variant->description }}</textarea>
                         </div>
                     </div>
                     <div class="col">

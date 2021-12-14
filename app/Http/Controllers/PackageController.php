@@ -14,12 +14,16 @@ class PackageController extends Controller
     {
         $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
+        $data = $data->mapToGroups(function($item, $key) {
+            return [$item->type => $item];
+        });
+
         return view('user.createPackage', compact('data'));
     }
-    
+
     public function store(Request $request)
     {
-        
+
         $data = $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
@@ -59,7 +63,7 @@ class PackageController extends Controller
     {
         $data = Package::where('user_id', $userId)
                         ->get();
-        return $data;
+        return view('user.home', ['packages'=>$data, 'package_nav'=>'active']);
     }
 
     public function dashboard($userId) {
@@ -71,8 +75,15 @@ class PackageController extends Controller
     public function details($id)
     {
         $package = Package::with('user', 'variants')->find($id);
-        
+
         return view('viewDetails', compact('package'));
+    }
+
+    public function edit(Package $package)
+    {
+        $data = Variant::where('user_id', Auth::user()->id)
+                        ->get();
+        return view('user.updatePackage', compact('package', 'data'));
     }
 
 }
