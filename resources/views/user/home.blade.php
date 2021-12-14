@@ -6,6 +6,16 @@
             @include('user.navigation')
 
             <div class="col">
+                @if (Session::has('errors'))
+                    <div class="alert alert-danger">
+                        <span>{{ Session::get('errors')->first() }}</span>
+                    </div>
+                @endif
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        <span>{{ Session::get('success') }}</span>
+                    </div>
+                @endif
                 <div class="container-fluid mb-3" align="right">
                     <a class="btn btn-primary" href="{{ route('createPackage') }}">Add Packages</a>
                 </div>
@@ -16,13 +26,28 @@
                                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                                     <div>
                                         <div class="card rounded" style="width:20rem;">
-                                            <img class="card-img-top img-fluid package-image rounded-top" style="height: 300px"
-                                                src="{{ url('storage/img/' . $package->image) }}" alt="card image">
+                                            <img class="card-img-top img-fluid package-image rounded-top"
+                                                style="height: 300px" src="{{ url('storage/img/' . $package->image) }}"
+                                                alt="card image">
                                             <div class="card-body">
                                                 <h4 class="card-title text-center">{{ $package->name }}</h4>
                                                 <p class="text-danger h4 text-center price"> PHP {{ $package->price }}
                                                 </p>
-                                                <a href="{{ route('editPackage', $package) }}" class="btn btn-primary display-block w-100"> Update </a>
+                                                <div style="display: flex">
+                                                    <div class="w-50 text-center">
+                                                        <a href="{{ route('editPackage', $package) }}"
+                                                            class="btn btn-primary display-block w-75"> Update </a>
+                                                    </div>
+                                                    <div class="w-50 text-center">
+                                                        <form action="{{ route('deletePackage', $package) }}"
+                                                            method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger display-block w-75">
+                                                                Delete </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -39,11 +64,4 @@
         </div>
     </div>
     </div>
-
-
-
-
-
-
-
 @endsection

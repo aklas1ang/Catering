@@ -66,16 +66,15 @@
         $(document).ready(() => {
             $('#image').change(event => {
                 let fileReader = new FileReader()
+                console.log('Just a test!')
 
                 fileReader.onload = function() {
-                    // console.log(fileReader.result)
                     $('#preview').attr('src', fileReader.result).css({
                         display: 'block',
                         height: '260px'
                     })
 
                 }
-                // console.log(event.target)
                 fileReader.readAsDataURL(event.target.files[0])
             })
         })
