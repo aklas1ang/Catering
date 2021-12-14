@@ -31,6 +31,11 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    public function redirectTo()
+    {
+        return route('myPackages', \Auth::user()->id);
+    }
+
     /**
      * Create a new controller instance.
      *

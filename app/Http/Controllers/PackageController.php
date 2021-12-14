@@ -60,7 +60,7 @@ class PackageController extends Controller
     {
         $packages = Package::where('user_id', $userId)
                         ->get();
-        return $packages;
+        return view('user.home', compact('packages'));
     }
 
     public function dashboard($userId) {

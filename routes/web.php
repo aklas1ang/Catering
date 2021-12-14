@@ -21,10 +21,10 @@ use App\Http\Controllers\DetailsController;
 */
 
 Auth::routes();
-Route::get('/', [AppController::class, 'index']);
+Route::get('/', [AppController::class, 'index'])->name('menu');
 
 Route::get('/packages', [PackageController::class, 'packages'])->name('packages');
-Route::get('/myPackages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
+Route::get('/packages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
 Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
 Route::get('/package/{id}/details', [PackageController::class, 'details'])->name('viewDetails');
 Route::post('/package', [PackageController::class, 'store']);
@@ -38,7 +38,7 @@ Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confi
 Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
 
 Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
-Route::middleware('auth')->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
+Route::middleware(['auth', 'ownBooking'])->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
 Route::post('/package/booking', [BookingController::class, 'store'])->name('store');
 Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBooking'])->name('cancelBooking');
 

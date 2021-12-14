@@ -42,8 +42,8 @@ class VariantController extends Controller
 
     public function myVariants($userId)
     {   
-        $data = Variant::where('user_id', $userId)
+        $variants = Variant::where('user_id', $userId)
                         ->get();
-        return $data;
+        return view('user.myVariants', compact('variants'));
     }
 }
