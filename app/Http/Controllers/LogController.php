@@ -14,8 +14,9 @@ class LogController extends Controller
      */
     public function index($user_id)
     {
+        $limit = $request->limit ?? 10;
         $log_nav = 'active';
-        $logs = Log::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+        $logs = Log::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate($limit);
         return view('user.logs', compact('logs', 'log_nav'));
     }
 

@@ -10,6 +10,16 @@
                 </div>
 
                 <div class="row">
+                    @if (Session::has('errors'))
+                        <div class="alert alert-danger">
+                            <span>{{ Session::get('errors')->first() }}</span>
+                        </div>
+                    @endif
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            <span>{{ Session::get('success') }}</span>
+                        </div>
+                    @endif
                     @if (count($variants) > 0)
                         @foreach ($variants as $variant)
                             <div class="col-md-4 mb-4">
@@ -21,7 +31,21 @@
                                         <h4 class="card-title text-center">{{ $variant->name }}</h4>
                                         <h4 class="card-title variant-description text-center">
                                             {{ $variant->description }}</h4>
-                                            <a href="{{ route('editVariant', $variant) }}" class="btn btn-primary display-block w-100"> Update </a>
+                                        <div class="w-100 text-center"
+                                            style="display: grid;grid-template-columns: 1fr 1fr;">
+                                            <div>
+                                                <a href="{{ route('editVariant', $variant) }}"
+                                                    class="btn btn-primary display-block w-75"> Update </a>
+                                            </div>
+                                            <div>
+                                                <form action="{{ route('deleteVariant', $variant) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger display-block w-75"> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

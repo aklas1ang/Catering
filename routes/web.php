@@ -29,6 +29,7 @@ Route::get('/myPackages/{userId}', [PackageController::class, 'myPackages'])->na
 Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
 Route::get('/package/{id}/details', [PackageController::class, 'details'])->name('viewDetails');
 Route::post('/package', [PackageController::class, 'store']);
+Route::delete('/package/{package}', [PackageController::class, 'destroy'])->name('deletePackage');
 Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name('packagesDashboard');
 Route::get('/package/{package}/edit', [PackageController::class, 'edit'])->name('editPackage');
 
@@ -38,6 +39,8 @@ Route::get('/myBookings/{userId}', [BookingController::class, 'myBookings'])->na
 Route::get('/reservations/{userId}', [BookingController::class, 'reservations'])->name('reservations');
 Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking'])->name('confirmBooking');
 Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
+Route::patch('/reservation/done/{booking}', [BookingController::class, 'doneBooking'])->name('doneBooking');
+
 
 Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
 Route::middleware('auth')->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
@@ -46,6 +49,7 @@ Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBooki
 
 Route::middleware('auth')->get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
 Route::post('/variant', [VariantController::class, 'store']);
+Route::delete('/variant/{variant}', [VariantController::class, 'destroy'])->name('deleteVariant');
 Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');
 Route::get('/variant/{variant}/edit', [VariantController::class, 'edit'])->name('editVariant');
 

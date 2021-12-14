@@ -40,16 +40,24 @@
                                         <td>{{ $booking->schedule }}</td>
                                         <td>{{ $booking->status }}</td>
                                         <td>
-                                            <form action="{{ route('cancelBooking', $booking) }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="schedule" class="schedule">
-                                                <button type="submit" class="btn btn-danger">Cancel</button>
-                                            </form>
+                                            @if ($booking->status == 'cancelled' || $booking->status == 'done')
+                                                No Action required
+                                            @else
+                                                <form action="{{ route('cancelBooking', $booking) }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="schedule" class="schedule">
+                                                    <button type="submit" class="btn btn-danger">Cancel</button>
+                                                </form>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end">
+                            {!! $bookings->links() !!}
+                        </div>
                     @endif
                 </div>
             </div>
