@@ -7,6 +7,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\VariantController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\DetailsController;
+use App\Http\Controllers\LogController;
 
 
 /*
@@ -29,6 +30,8 @@ Route::get('/package/create', [PackageController::class, 'create'])->name('creat
 Route::get('/package/{id}/details', [PackageController::class, 'details'])->name('viewDetails');
 Route::post('/package', [PackageController::class, 'store']);
 Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name('packagesDashboard');
+Route::get('/package/{package}/edit', [PackageController::class, 'edit'])->name('editPackage');
+Route::patch('/package/{package}/update', [PackageController::class, 'update']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -45,3 +48,7 @@ Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBooki
 Route::middleware('auth')->get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
 Route::post('/variant', [VariantController::class, 'store']);
 Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');
+Route::get('/variant/{variant}/edit', [VariantController::class, 'edit'])->name('editVariant');
+
+// logs
+Route::get('/logs/{user_id}', [LogController::class, 'index'])->name('logs');

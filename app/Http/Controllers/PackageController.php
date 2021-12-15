@@ -15,20 +15,24 @@ class PackageController extends Controller
     {
         $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
+        $data = $data->mapToGroups(function($item, $key) {
+            return [$item->type => $item];
+        });
+
         return view('user.createPackage', compact('data'));
     }
-    
+
     public function store(Request $request)
     {
-        
+
         $data = $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:packages,name',
             'description' => 'required',
             'price' => 'required',
             'variants' => 'required|array',
             'variants.*' => 'exists:variants,id',
             'user_id' => 'required',
-            'image' => 'image|nullable|max:1999'
+            'image' => 'image|required|max:1999'
         ]);
 
         if($request->hasFile('image'))
@@ -38,9 +42,6 @@ class PackageController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = $fileName.'_'.time().'.'.$extension;
             $path = $request->file('image')->storeAs('public/img', $fileNameToStore);
-        }else
-        {
-            $fileNameToStore = 'noImage.png';
         }
 
         $data['image'] = $fileNameToStore;
@@ -48,7 +49,7 @@ class PackageController extends Controller
         $createdPackage = Package::create($data);
         $createdPackage->variants()->attach($request->variants);
 
-        return redirect("/myPackages/$request->user_id");
+        return redirect("/packages/$request->user_id");
     }
 
     public function packages()
@@ -60,7 +61,9 @@ class PackageController extends Controller
     {
         $packages = Package::where('user_id', $userId)
                         ->get();
-        return view('user.home', compact('packages'));
+        
+        $package_nav = 'active';
+        return view('user.home', compact('packages', 'package_nav'));
     }
 
     public function dashboard($userId) {
@@ -79,8 +82,46 @@ class PackageController extends Controller
     public function details($id)
     {
         $package = Package::with('user', 'variants')->find($id);
-        
+
         return view('viewDetails', compact('package'));
+    }
+
+    public function edit(Package $package)
+    {
+        $data = Variant::where('user_id', Auth::user()->id)
+                        ->get();
+        return view('user.updatePackage', compact('package', 'data'));
+    }
+
+    public function update(Package $package, Request $request)
+    {
+
+        $data = $this->validate($request, [
+            'name' => 'required|unique:packages,name',
+            'description' => 'required',
+            'price' => 'required',
+            'variants' => 'required|array',
+            'variants.*' => 'exists:variants,id',
+            'user_id' => 'required',
+            'image' => 'image|required|max:1999'
+        ]);
+
+        if($request->hasFile('image'))
+        {
+            $fileNameWithExt = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            $path = $request->file('image')->storeAs('public/img', $fileNameToStore);
+            Storage::delete('public/img/'.$package->image);
+        }
+
+        $data['image'] = $fileNameToStore;
+
+        $package->update($data);
+
+        return redirect("/packages/$package->user_id")
+            ->with('success', 'Package updated successfully');
     }
 
 }

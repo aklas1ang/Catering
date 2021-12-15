@@ -25,9 +25,7 @@ class BookingCancelRequest extends FormRequest
      */
     public function rules()
     {
-        $booking = Booking::find(request()->booking);
-        $date = Carbon::parse($booking->schedule)->subDays(2);
-        request()->schedule = Carbon::now();
+        $date = Carbon::parse(request()->booking->schedule)->subDays(2);
 
         return [
             'schedule' => 'required|date|before:'.$date->format('Y-m-d'),
