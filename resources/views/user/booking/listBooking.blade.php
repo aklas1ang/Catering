@@ -40,7 +40,7 @@
                                         <td>{{ $booking->schedule }}</td>
                                         <td>{{ $booking->status }}</td>
                                         <td>
-                                            @if ($booking->status == 'cancelled' || $booking->status == 'done')
+                                            @if ($booking->status == 'cancelled' || $booking->status == 'done' || $booking->status == 'declined')
                                                 No Action required
                                             @else
                                                 <form action="{{ route('cancelBooking', $booking) }}" method="POST">
@@ -49,7 +49,6 @@
                                                     <button type="submit" class="btn btn-danger">Cancel</button>
                                                 </form>
                                             @endif
-
                                         </td>
                                     </tr>
                                 @endforeach

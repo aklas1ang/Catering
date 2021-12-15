@@ -39,7 +39,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/myBookings/{userId}', [BookingController::class, 'myBookings'])->name('myBookings');
 Route::get('/reservations/{userId}', [BookingController::class, 'reservations'])->name('reservations');
 Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking'])->name('confirmBooking');
-Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
+Route::patch('/reservation/declined/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
 Route::patch('/reservation/done/{booking}', [BookingController::class, 'doneBooking'])->name('doneBooking');
 
 
