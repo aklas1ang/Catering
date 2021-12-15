@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Package;
 use App\Models\Variant;
+use Validator;
 
 class PackageController extends Controller
 {
@@ -122,6 +123,20 @@ class PackageController extends Controller
 
         return redirect("/packages/$package->user_id")
             ->with('success', 'Package updated successfully');
+    }
+    
+    public function destroy(Request $request, Package $package)
+    {
+        // inverted validation
+        $error = Validator::make(['id' => $package->id], [
+            'id' => 'required|exists:bookings,package_id'
+        ]);
+
+        if ($error->fails()) {
+            $package->delete();
+            return redirect()->route('myPackages', Auth::user()->id)->withSuccess('Package deleted!');
+        }
+        return redirect()->route('myPackages', Auth::user()->id)->withErrors(['message' => 'Package in used!']);
     }
 
 }

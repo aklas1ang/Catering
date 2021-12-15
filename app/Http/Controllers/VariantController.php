@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Variant;
+use Validator;
 
 class VariantController extends Controller
 {
@@ -53,5 +54,18 @@ class VariantController extends Controller
         $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
         return view('user.updateVariant', compact('variant', 'data'));
+    }
+
+    public function destroy(Request $request, Variant $variant)
+    {
+        $error = Validator::make(['variant_id' => $variant->id],[
+            'variant_id' => 'required|exists:package_variant,variant_id'
+        ]);
+
+        if ($error->fails()) {
+            $variant->delete();
+            return redirect()->route('myVariants', Auth::user()->id)->withSuccess('Variant deleted!');
+        }
+        return redirect()->route('myVariants', Auth::user()->id)->withErrors(['message' => 'Variant in used!']);
     }
 }

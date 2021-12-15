@@ -21,12 +21,13 @@ class BookingController extends Controller
         return view('user.booking.listBooking', ['bookings' => $bookings, 'booking_nav'=>'active']);
     }
 
-    public function reservations($userId)
+    public function reservations(Request $request, $userId)
     {
+        $limit = $request->limit ?? 10;
         $reservation_nav = 'active';
         $reservations = Booking::with('package', 'bookBy')
                         ->where('reserved_to_id' , $userId)
-                        ->get();
+                        ->paginate($limit);
 
         return view('user.reservations', compact('reservations', 'reservation_nav'));
     }
@@ -69,6 +70,19 @@ class BookingController extends Controller
 
         return redirect("reservations/$booking->reserved_to_id")
                 ->with('success', 'The booking has been declined!');
+    }
+
+    public function doneBooking(Booking $booking)
+    {
+        $booking->status = Booking::DONE;
+        $booking->save();
+
+        // create logs
+        Log::store(Booking::DONE, $booking->reservedTo->name . ' mark your booking as done', $booking->book_by_id);
+        Log::store(Booking::DONE, 'You mark '. $booking->bookBy->name. ' booking as done', $booking->reserved_to_id);
+
+        return redirect("reservations/$booking->reserved_to_id")
+                ->with('success', 'The booking has been done!');
     }
 
     public function createBooking(Package $package)
