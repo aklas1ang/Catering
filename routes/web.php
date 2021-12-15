@@ -38,24 +38,24 @@ Route::middleware('auth')->group(function() {
     Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking'])->name('confirmBooking');
     Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
     Route::patch('/reservation/done/{booking}', [BookingController::class, 'doneBooking'])->name('doneBooking');
-    
-    
+
+
     Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
     Route::middleware('ownBooking')->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
     Route::post('/package/booking', [BookingController::class, 'store'])->name('store');
     Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBooking'])->name('cancelBooking');
-    
+
     Route::get('/variant/create', [VariantController::class, 'create'])->name('createVariant');
     Route::post('/variant', [VariantController::class, 'store']);
+    Route::post('/variant/{variant}', [VariantController::class, 'update'])->name('updateVariant');
     Route::delete('/variant/{variant}', [VariantController::class, 'destroy'])->name('deleteVariant');
     Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');
     Route::get('/variant/{variant}/edit', [VariantController::class, 'edit'])->name('editVariant');
-    
+
     // logs
     Route::get('/logs/{user_id}', [LogController::class, 'index'])->name('logs');
 });
 
 Route::get('/', [AppController::class, 'index'])->name('menu');
 Route::get('/package/{id}/details', [PackageController::class, 'details'])->name('viewDetails');
-
 

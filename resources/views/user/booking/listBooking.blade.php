@@ -54,7 +54,6 @@
                                                     <button type="submit" class="btn btn-danger">Cancel</button>
                                                 </form>
                                             @endif
-
                                         </td>
                                     </tr>
                                 @endforeach

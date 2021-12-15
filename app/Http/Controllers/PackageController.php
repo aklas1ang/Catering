@@ -64,7 +64,7 @@ class PackageController extends Controller
     {
         $packages = Package::where('user_id', $userId)
                         ->get();
-        
+
         $package_nav = 'active';
         return view('user.home', compact('packages', 'package_nav'));
     }
@@ -81,7 +81,7 @@ class PackageController extends Controller
             Storage::delete('public/storage/img/'.$package->image);
         }
     }
-    
+
     public function details($id)
     {
         $package = Package::with('user', 'variants')->find($id);
@@ -106,9 +106,10 @@ class PackageController extends Controller
             'variants' => 'required|array',
             'variants.*' => 'exists:variants,id',
             'user_id' => 'required',
-            'image' => 'image|required|max:1999'
+            'image' => 'image|max:1999'
         ]);
 
+        $fileNameToStore = $package->image;
         if($request->hasFile('image'))
         {
             $fileNameWithExt = $request->file('image')->getClientOriginalName();
@@ -126,7 +127,7 @@ class PackageController extends Controller
         return redirect("/packages/$package->user_id")
             ->with('success', 'Package updated successfully');
     }
-    
+
     public function destroy(Request $request, Package $package)
     {
         // inverted validation
@@ -140,7 +141,7 @@ class PackageController extends Controller
             return redirect()->route('myPackages', Auth::user()->id)->withSuccess('Package deleted!');
         }
 
-        
+
         return redirect()->route('myPackages', Auth::user()->id)->withErrors(['message' => 'Package in used!']);
     }
 

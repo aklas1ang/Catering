@@ -64,7 +64,7 @@
                                         <div class="card" style="width:23rem;">
                                             <div class="card-body">
                                                 <h4 class="card-title">{{ $package->name }}</h4>
-                                                <p class="card-text description">{{ $package->description }}
+                                                <p class="card-text description">{{ strlen($package->description) > 20 ? substr($package->description, 0, 20) .'...': $package->description }}
                                                 </p>
                                                 <a href="{{ route('viewDetails', $package) }}"
                                                     class="btn btn-primary">View Details</a>
