@@ -100,7 +100,7 @@ class PackageController extends Controller
     {
 
         $data = $this->validate($request, [
-            'name' => 'required|unique:packages,name',
+            'name' => 'required|unique:packages,name,'.$package->id,
             'description' => 'required',
             'price' => 'required',
             'variants' => 'required|array',
