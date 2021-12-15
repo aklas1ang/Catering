@@ -46,6 +46,11 @@ class VariantController extends Controller
     {
         $data = Variant::where('user_id', $userId)
                         ->get();
+
+        $data = $data->mapToGroups(function($item, $key) {
+            return [$item->type => $item];
+        });
+
         return view('user.variants', ['variants'=>$data, 'variant_nav'=>'active']);
     }
 
