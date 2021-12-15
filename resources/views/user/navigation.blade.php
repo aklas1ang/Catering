@@ -8,7 +8,7 @@
             aria-controls="v-pills-messages" aria-selected="false">Bookings</a>
         <a class="nav-link {{ $reservation_nav ?? '' }}" id="v-pills-reservation-tab" data-toggle="pill" href="{{ route('reservations') }}" role="tab"
             aria-controls="v-pills-reservation" aria-selected="false">Reservations</a>
-      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="{{ route('logs', Auth::user()->id) }}" role="tab"
+      <a class="nav-link {{ $log_nav ?? '' }}" id="v-pills-settings-tab" data-toggle="pill" href="{{ route('logs') }}" role="tab"
             aria-controls="v-pills-settings" aria-selected="false">Logs</a>
     </div>
 </div>

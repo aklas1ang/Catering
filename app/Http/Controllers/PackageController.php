@@ -57,7 +57,7 @@ class PackageController extends Controller
         $createdPackage = Package::create($data);
         $createdPackage->variants()->attach($request->variants);
 
-        return redirect("/packages/$request->user_id");
+        return redirect()->route('myPackages')->with('success', 'Package created');
     }
 
     public function myPackages()
@@ -128,7 +128,7 @@ class PackageController extends Controller
 
         $package->update($data);
 
-        return redirect("/packages/$package->user_id")
+        return redirect()->route('myPackages')
             ->with('success', 'Package updated successfully');
     }
 

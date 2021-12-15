@@ -40,7 +40,7 @@ class VariantController extends Controller
         $data['image'] = $fileNameToStore;
         Variant::create($data);
 
-        return redirect("myVariants/$request->user_id")
+        return redirect()->route('myVariants')
             ->with('success', 'Variant Created');
     }
 
@@ -69,7 +69,7 @@ class VariantController extends Controller
 
         $variant->update($data);
 
-        return redirect("myVariants/$request->user_id")
+        return redirect()->route('myVariants')
             ->with('success', 'Variant updated successfully');
     }
 
