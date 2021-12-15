@@ -33,7 +33,7 @@ class VariantController extends Controller
             $path = $request->file('image')->storeAs('public/img', $fileNameToStore);
         }else
         {
-            $fileNameToStore = 'noimage.jpg';
+            $fileNameToStore = 'noImage.png';
         }
 
         $data['image'] = $fileNameToStore;

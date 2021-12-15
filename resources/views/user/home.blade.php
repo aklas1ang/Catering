@@ -5,15 +5,16 @@
         <div class="row">
             @include('user.navigation')
 
-            <div class="col">
+            <div class="col">    
                 @if (Session::has('errors'))
                     <div class="alert alert-danger">
                         <span>{{ Session::get('errors')->first() }}</span>
                     </div>
                 @endif
-                @if (Session::has('success'))
-                    <div class="alert alert-success">
-                        <span>{{ Session::get('success') }}</span>
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show " role="alert">
+                        {{session('success')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 <div class="container-fluid mb-3" align="right">

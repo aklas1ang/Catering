@@ -22,16 +22,17 @@ use App\Http\Controllers\LogController;
 */
 
 Auth::routes();
-Route::get('/', [AppController::class, 'index']);
+Route::get('/', [AppController::class, 'index'])->name('menu');
 
 Route::get('/packages', [PackageController::class, 'packages'])->name('packages');
-Route::get('/myPackages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
+Route::get('/packages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
 Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
 Route::get('/package/{id}/details', [PackageController::class, 'details'])->name('viewDetails');
 Route::post('/package', [PackageController::class, 'store']);
 Route::delete('/package/{package}', [PackageController::class, 'destroy'])->name('deletePackage');
 Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name('packagesDashboard');
 Route::get('/package/{package}/edit', [PackageController::class, 'edit'])->name('editPackage');
+Route::patch('/package/{package}/update', [PackageController::class, 'update']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -43,7 +44,7 @@ Route::patch('/reservation/done/{booking}', [BookingController::class, 'doneBook
 
 
 Route::get('/myPackageBookings/{userId}', [BookingController::class, 'myPackageBookings'])->name('myPackageBookings');
-Route::middleware('auth')->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
+Route::middleware(['auth', 'ownBooking'])->get('/package/{package}/booking/create', [BookingController::class, 'createBooking'])->name('createBooking');
 Route::post('/package/booking', [BookingController::class, 'store'])->name('store');
 Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBooking'])->name('cancelBooking');
 

@@ -3,6 +3,11 @@
 @section('content')
 
     <div class="container-fluid">
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
+        @endif
         <div class="text-center">
             <img src="{{ url('/images/logo.PNG') }} " alt="">
         </div> <br>
@@ -36,7 +41,7 @@
                 <img src="{{ url('/images/line.png') }}" alt="">
             </div>
 
-            <div class="row">
+            <div class="row d-flex justify-content-center">
                 @if (count($packages) > 0)
                     @foreach ($packages as $package)
                         <div class="col-md-4">

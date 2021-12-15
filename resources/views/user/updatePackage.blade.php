@@ -13,9 +13,9 @@
             </div>
         @endif
 
-        <form method="POST" action="/package/{package}/edit" enctype="multipart/form-data">
+        <form method="POST" action="/package/{{$package->id}}/update" enctype="multipart/form-data">
             @csrf
-
+            @method('PATCH')
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 ">
