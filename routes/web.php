@@ -25,16 +25,16 @@ Auth::routes();
 Route::get('/', [AppController::class, 'index'])->name('menu');
 
 Route::middleware('auth')->group(function() {
-    Route::get('/packages/{userId}', [PackageController::class, 'myPackages'])->name('myPackages');
+    Route::get('/packages', [PackageController::class, 'myPackages'])->name('myPackages');
     Route::get('/package/create', [PackageController::class, 'create'])->name('createPackage');
     Route::delete('/package/{package}', [PackageController::class, 'destroy'])->name('deletePackage');
-    Route::get('/dashboard/{userId}', [PackageController::class, 'dashboard'])->name('packagesDashboard');
+    Route::get('/dashboard', [PackageController::class, 'dashboard'])->name('packagesDashboard');
     Route::post('/package', [PackageController::class, 'store']);
     Route::get('/package/{package}/edit', [PackageController::class, 'edit'])->name('editPackage');
     Route::patch('/package/{package}/update', [PackageController::class, 'update']);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/myBookings/{userId}', [BookingController::class, 'myBookings'])->name('myBookings');
-    Route::get('/reservations/{userId}', [BookingController::class, 'reservations'])->name('reservations');
+    Route::get('/myBookings', [BookingController::class, 'myBookings'])->name('myBookings');
+    Route::get('/reservations', [BookingController::class, 'reservations'])->name('reservations');
     Route::patch('/reservation/confirm/{booking}', [BookingController::class, 'confirmBooking'])->name('confirmBooking');
     Route::patch('/reservation/decline/{booking}', [BookingController::class, 'declineBooking'])->name('declineBooking');
     Route::patch('/reservation/done/{booking}', [BookingController::class, 'doneBooking'])->name('doneBooking');
@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/variant', [VariantController::class, 'store']);
     Route::post('/variant/{variant}', [VariantController::class, 'update'])->name('updateVariant');
     Route::delete('/variant/{variant}', [VariantController::class, 'destroy'])->name('deleteVariant');
-    Route::get('/myVariants/{userId}', [VariantController::class, 'myVariants'])->name('myVariants');
+    Route::get('/myVariants', [VariantController::class, 'myVariants'])->name('myVariants');
     Route::get('/variant/{variant}/edit', [VariantController::class, 'edit'])->name('editVariant');
 
     // logs

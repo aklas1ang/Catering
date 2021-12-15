@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Booking;
 use App\Models\Package;
 use App\Http\Controllers\LogController as Log;
@@ -13,20 +14,20 @@ use App\Http\Requests\BookingCancelRequest;
 
 class BookingController extends Controller
 {
-    public function myBookings($userId)
+    public function myBookings()
     {
         $paginate = $request->paginate ?? 10;
-        $bookings = Booking::where('book_by_id', $userId)
+        $bookings = Booking::where('book_by_id', Auth::user()->id)
                         ->paginate($paginate);
         return view('user.booking.listBooking', ['bookings' => $bookings, 'booking_nav'=>'active']);
     }
 
-    public function reservations(Request $request, $userId)
+    public function reservations(Request $request)
     {
         $limit = $request->limit ?? 10;
         $reservation_nav = 'active';
         $reservations = Booking::with('package', 'bookBy')
-                        ->where('reserved_to_id' , $userId)
+                        ->where('reserved_to_id' , Auth::user()->id)
                         ->paginate($limit);
 
         return view('user.reservations', compact('reservations', 'reservation_nav'));

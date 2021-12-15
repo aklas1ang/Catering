@@ -60,17 +60,17 @@ class PackageController extends Controller
         return redirect("/packages/$request->user_id");
     }
 
-    public function myPackages($userId)
+    public function myPackages()
     {
-        $packages = Package::where('user_id', $userId)
+        $packages = Package::where('user_id', Auth::user()->id)
                         ->get();
 
         $package_nav = 'active';
         return view('user.home', compact('packages', 'package_nav'));
     }
 
-    public function dashboard($userId) {
-        $data = Package::whereNotIn('user_id', [$userId])
+    public function dashboard() {
+        $data = Package::whereNotIn('user_id', Auth::user()->id)
                         ->get();
         return $data;
     }
@@ -93,7 +93,11 @@ class PackageController extends Controller
     {
         $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
-        return view('user.updatePackage', compact('package', 'data'));
+        if($package->user_id == Auth::user()->id){
+            return view('user.updatePackage', compact('package', 'data'));
+        }
+
+        return redirect()->back();
     }
 
     public function update(Package $package, Request $request)

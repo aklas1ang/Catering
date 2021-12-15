@@ -73,9 +73,9 @@ class VariantController extends Controller
             ->with('success', 'Variant updated successfully');
     }
 
-    public function myVariants($userId)
+    public function myVariants()
     {
-        $data = Variant::where('user_id', $userId)
+        $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
 
         $data = $data->mapToGroups(function($item, $key) {
@@ -89,7 +89,12 @@ class VariantController extends Controller
     {
         $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
-        return view('user.updateVariant', compact('variant', 'data'));
+        if($variant->user_id == Auth::user()->id)
+        {
+            return view('user.updateVariant', compact('variant', 'data'));
+        }
+
+        return redirect()->back();
     }
 
     public function destroy(Request $request, Variant $variant)
