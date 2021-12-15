@@ -5,21 +5,24 @@
         <div class="row">
             @include('user.navigation')
             <div class="col-10">
+                @if (Session::has('errors'))
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <span>{{ Session::get('errors')->first() }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (Session::has('success'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <span>{{ Session::get('success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="container-fluid mb-3 " align="right">
                     <a class="btn btn-primary " href="{{ route('createVariant') }}">Add Variant</a>
                 </div>
 
                 <div class="row">
-                    @if (Session::has('errors'))
-                        <div class="alert alert-danger">
-                            <span>{{ Session::get('errors')->first() }}</span>
-                        </div>
-                    @endif
-                    @if (Session::has('success'))
-                        <div class="alert alert-success">
-                            <span>{{ Session::get('success') }}</span>
-                        </div>
-                    @endif
+                    
                     @if (count($variants) > 0)
                         @foreach ($variants as $variant)
                             <div class="col-md-4 mb-4">
