@@ -15,21 +15,27 @@
             </div>
         @endif
 
-        <form action="/variant" method="post" enctype="multipart/form-data">
+        <form action="{{ route('updateVariant', $variant) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="name ml-25">
-                            Name <input class="form-control" type="text" name="name" value="{{$variant->name}}">
+                            Name <input class="form-control" type="text" name="name"
+                                value="{{ old('name', $variant->name) }}">
                         </div>
                     </div>
                     <div class="col-md-6 type">
                         <label for="type">Type</label>
                         <select name="type" id="type" class="form-control">
-                            <option value="Food">Food</option>
-                            <option value="Drinks">Drinks</option>
+                            @foreach (['Foods', 'Drinks'] as $type)
+                                @if ($type == old('type', $variant->type))
+                                    <option value="{{ $type }}" selected>{{ $type }}</option>
+                                @else
+                                    <option value="{{ $type }}">{{ $type }}</option>
+                                @endif
+                            @endforeach
                         </select>
                     </div>
                 </div><br>
@@ -45,7 +51,8 @@
                         <div class="image">
                             Image <input type="file" id="image" name="image">
                         </div>
-                        <img id="preview" class="form-control" style="display:none;" src="" alt="">
+                        <img id="preview" class="form-control" style="height: 318px"
+                            src="{{ url('storage/img/' . $variant->image) }}" alt="">
                     </div>
                 </div><br>
             </div><br>

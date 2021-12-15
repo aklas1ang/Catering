@@ -1,20 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-    </div>
     <div class="container-fluid">
         <div class="row">
             @include('user.navigation')
-            @if ($errors->count())
-                @dd($errors)
-            @endif
+           
             <div class="col-md-10">
+                @if ($errors->any())
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            {{$error}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endforeach
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="container">
                     <h3>My Bookings</h3>
                 </div>

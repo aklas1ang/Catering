@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Variant;
 use Validator;
 
@@ -39,7 +40,37 @@ class VariantController extends Controller
         $data['image'] = $fileNameToStore;
         Variant::create($data);
 
-        return redirect("myVariants/$request->user_id");
+        return redirect("myVariants/$request->user_id")
+            ->with('success', 'Variant Created');
+    }
+
+    public function update(Variant $variant, Request $request)
+    {
+        $data = $this->validate($request, [
+            'name' => 'required',
+            'type' => 'required',
+            'description' => 'required',
+            'user_id' => 'required',
+            'image' => 'image|nullable|max:1999'
+        ]);
+
+        $fileNameToStore = $variant->image;
+        if($request->hasFile('image'))
+        {
+            $fileNameWithExt = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+            $path = $request->file('image')->storeAs('public/img', $fileNameToStore);
+            Storage::delete('public/img/'.$variant->image);
+        }
+
+        $data['image'] = $fileNameToStore;
+
+        $variant->update($data);
+
+        return redirect("myVariants/$request->user_id")
+            ->with('success', 'Variant updated successfully');
     }
 
     public function myVariants($userId)
