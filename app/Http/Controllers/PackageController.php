@@ -16,6 +16,13 @@ class PackageController extends Controller
     {
         $data = Variant::where('user_id', Auth::user()->id)
                         ->get();
+
+        if(count($data) < 1)
+        {
+            return redirect("/variant/create")
+                ->with('error', 'Create a variant first');
+        }
+
         $data = $data->mapToGroups(function($item, $key) {
             return [$item->type => $item];
         });
@@ -51,11 +58,6 @@ class PackageController extends Controller
         $createdPackage->variants()->attach($request->variants);
 
         return redirect("/packages/$request->user_id");
-    }
-
-    public function packages()
-    {
-        return Package::all()->take(6);
     }
 
     public function myPackages($userId)
@@ -134,8 +136,11 @@ class PackageController extends Controller
 
         if ($error->fails()) {
             $package->delete();
+            Storage::delete('public/img/'.$package->image);
             return redirect()->route('myPackages', Auth::user()->id)->withSuccess('Package deleted!');
         }
+
+        
         return redirect()->route('myPackages', Auth::user()->id)->withErrors(['message' => 'Package in used!']);
     }
 

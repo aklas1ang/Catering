@@ -3,7 +3,12 @@
 @section('content')
     <div class="container">
         <h1>Hello Create Variant</h1>
-
+        @if(session('error'))
+            <div class="alert alert-warning alert-dismissible fade show">
+                <span>{{ session('error') }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Ooopss!!</strong> There were some errors listed below
