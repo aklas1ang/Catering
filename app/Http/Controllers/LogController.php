@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Log;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -12,11 +12,11 @@ class LogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index()
     {
         $limit = $request->limit ?? 10;
         $log_nav = 'active';
-        $logs = Log::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate($limit);
+        $logs = Log::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate($limit);
         return view('user.logs', compact('logs', 'log_nav'));
     }
 

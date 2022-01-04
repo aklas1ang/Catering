@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/variant/{variant}/edit', [VariantController::class, 'edit'])->name('editVariant');
 
     // logs
-    Route::get('/logs/{user_id}', [LogController::class, 'index'])->name('logs');
+    Route::get('/logs', [LogController::class, 'index'])->name('logs');
 });
 
 Route::get('/', [AppController::class, 'index'])->name('menu');
