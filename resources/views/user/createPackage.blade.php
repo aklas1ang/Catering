@@ -23,9 +23,14 @@
                             Name <input class="form-control" type="text" name="name" value="{{ old('name') }}">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="price">
                             Price <input class="form-control " type="number" name="price" value="{{ old('price') }}">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="limit">
+                            Limit <input class="form-control " type="number" name="limit" value="{{ old('limit') }}">
                         </div>
                     </div>
                 </div><br>
