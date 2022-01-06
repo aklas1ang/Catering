@@ -40,7 +40,8 @@ class PackageController extends Controller
             'variants' => 'required|array',
             'variants.*' => 'exists:variants,id',
             'user_id' => 'required',
-            'image' => 'image|required|max:1999'
+            'image' => 'image|required|max:1999',
+            'limit' => 'required'
         ]);
 
         if($request->hasFile('image'))
